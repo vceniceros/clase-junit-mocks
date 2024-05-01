@@ -2,9 +2,13 @@ package org.algo3;
 
 
 
-import org.algo3.modelo.Chiste;
-import org.algo3.modelo.Yayo;
+import org.algo3.modelo.*;
+import org.algo3.modelo.invitado.Invitado;
+import org.algo3.modelo.proveedor.Proveedor;
+import org.algo3.modelo.tiempo.Tiempo;
 import org.junit.*;
+//Let's import Mockito statically so that the code looks clearer
+import static org.mockito.Mockito.*;
 
 
 import java.util.ArrayList;
@@ -36,7 +40,9 @@ public class YayoTest {
     @Test
     public void cuandoSeInstanciaYayoNoTieneChistes(){
         // Arrange
-        Yayo yayo = new Yayo();
+        Proveedor proovedorMock = mock(Proveedor.class);
+        Invitado invitadoMock = mock(Invitado.class);
+        Yayo yayo = new Yayo(proovedorMock, invitadoMock);
 
         //Act
         ArrayList<Chiste> chistes = yayo.todosLosChistes();
@@ -45,42 +51,131 @@ public class YayoTest {
         Assert.assertEquals(0, chistes.size());
     }
 
-    /*Como podemos testear esto?*/
     @Test
-    public void yayoCuentaUnChisteDeProgramacionEnEspanniol(){
+    public void yayoCuentaUnChisteDeProgramacionEnEspanniolSiElDiaEsPar(){
+
         // Arrange
-        Yayo yayo = new Yayo();
+        Chiste chisteFalso = new Chiste("Programming","hola pepe","Hola jose");
+        Proveedor proovedorStub = mock(Proveedor.class);
+        when(proovedorStub.solicitarChiste("Programming", "es")).thenReturn(chisteFalso);
+        Invitado invitadoMock = mock(Invitado.class);
+        Tiempo tiempoStub = mock(Tiempo.class);
+        when(tiempoStub.obtenerDiaDeHoy()).thenReturn(2);
+
+        Yayo yayo = new Yayo(proovedorStub, invitadoMock);
+
 
         //Act
-        Chiste chiste = yayo.contarChiste();
+        Chiste chiste = yayo.contarChiste(tiempoStub);
 
         //Assert
-        Assert.assertEquals(true, chiste.tieneCategoria("Programming"));
+        Assert.assertTrue(chiste.tieneCategoria("Programming"));
     }
 
-    /*Como podemos testear esto sin depender de la fecha?*/
     @Test
-    public void yayoCuentaUnChisteDeNavidadEnIngles(){
+    public void yayoInvocaAlProvedorParaSolicitarChisteDeProgramacion(){
+
         // Arrange
-        Yayo yayo = new Yayo();
+        Chiste chisteFalso = new Chiste("Programming","hola pepe","Hola jose");
+        Proveedor proovedorStub = mock(Proveedor.class);
+        when(proovedorStub.solicitarChiste("Programming", "es")).thenReturn(chisteFalso);
+        Invitado invitadoMock = mock(Invitado.class);
+        Tiempo tiempoStub = mock(Tiempo.class);
+        when(tiempoStub.obtenerDiaDeHoy()).thenReturn(2);
+        Yayo yayo = new Yayo(proovedorStub, invitadoMock);
+
 
         //Act
-        Chiste chiste = yayo.contarChiste();
+        Chiste chiste = yayo.contarChiste(tiempoStub);
 
         //Assert
-        Assert.assertEquals(true, chiste.tieneCategoria("Christmas"));
+        verify(proovedorStub, times(1)).solicitarChiste("Programming", "es");
+    }
+
+    @Test
+    public void yayoCuentaUnChisteDeNavidadEnInglesSiElDiaEsInpar(){
+
+        // Arrange
+        Chiste chisteFalso = new Chiste("Christmas","Hello pepe!","Hi Mark");
+        Proveedor proovedorStub = mock(Proveedor.class);
+        when(proovedorStub.solicitarChiste("Christmas", "en")).thenReturn(chisteFalso);
+        Invitado invitadoMock = mock(Invitado.class);
+        Tiempo tiempoStub = mock(Tiempo.class);
+        when(tiempoStub.obtenerDiaDeHoy()).thenReturn(5);
+
+        Yayo yayo = new Yayo(proovedorStub, invitadoMock);
+
+
+        //Act
+        Chiste chiste = yayo.contarChiste(tiempoStub);
+
+        //Assert
+        Assert.assertTrue(chiste.tieneCategoria("Christmas"));
+    }
+
+    @Test
+    public void yayoInvocaAlProvedorParaSolicitarChisteDeNavidad(){
+
+        // Arrange
+        Chiste chisteFalso = new Chiste("Christmas","Hello pepe!","Hi Mark");
+        Proveedor proovedorStub = mock(Proveedor.class);
+        when(proovedorStub.solicitarChiste("Christmas", "en")).thenReturn(chisteFalso);
+        Invitado invitadoMock = mock(Invitado.class);
+        Tiempo tiempoStub = mock(Tiempo.class);
+        when(tiempoStub.obtenerDiaDeHoy()).thenReturn(5);
+        Yayo yayo = new Yayo(proovedorStub, invitadoMock);
+
+
+        //Act
+        Chiste chiste = yayo.contarChiste(tiempoStub);
+
+        //Assert
+        verify(proovedorStub, times(1)).solicitarChiste("Christmas", "en");
     }
 
     @Test
     public void yayoCuentaUnChisteMalisimo(){
+
         // Arrange
-        Yayo yayo = new Yayo();
+        Chiste chisteFalso = new Chiste("Christmas","Hello pepe!","Hi Mark");
+        Proveedor proovedorStub = mock(Proveedor.class);
+        when(proovedorStub.solicitarChiste("Christmas", "en")).thenReturn(chisteFalso);
+        Invitado invitadoStub = mock(Invitado.class);
+        when(invitadoStub.puntuar(chisteFalso)).thenReturn(2);
+        Tiempo tiempoStub = mock(Tiempo.class);
+        when(tiempoStub.obtenerDiaDeHoy()).thenReturn(5);
+
+        Yayo yayo = new Yayo(proovedorStub, invitadoStub);
+
 
         //Act
-        Chiste chiste = yayo.contarChiste();
+        Chiste chiste = yayo.contarChiste(tiempoStub);
 
         //Assert
-        Assert.assertEquals(true,chiste.esMalo());
+        Assert.assertTrue(chiste.esMalo());
+
+    }
+
+    @Test
+    public void yayoCuentaUnChisteBuenisimo(){
+
+        // Arrange
+        Chiste chisteFalso = new Chiste("Christmas","Hello pepe!","Hi Mark");
+        Proveedor proovedorStub = mock(Proveedor.class);
+        when(proovedorStub.solicitarChiste("Christmas", "en")).thenReturn(chisteFalso);
+        Invitado invitadoStub = mock(Invitado.class);
+        when(invitadoStub.puntuar(chisteFalso)).thenReturn(10);
+        Tiempo tiempoStub = mock(Tiempo.class);
+        when(tiempoStub.obtenerDiaDeHoy()).thenReturn(5);
+
+        Yayo yayo = new Yayo(proovedorStub, invitadoStub);
+
+
+        //Act
+        Chiste chiste = yayo.contarChiste(tiempoStub);
+
+        //Assert
+        Assert.assertFalse(chiste.esMalo());
 
     }
 

@@ -1,46 +1,61 @@
 package org.algo3.modelo;
 
-import java.time.LocalDate;
+import org.algo3.modelo.invitado.Invitado;
+import org.algo3.modelo.proveedor.Proveedor;
+import org.algo3.modelo.tiempo.Tiempo;
+
 import java.util.ArrayList;
 
 public class Yayo {
 
     private ArrayList<Chiste> chistes;
-    private Proovedor proovedor;
+    private Proveedor proovedor;
     private Invitado invitado;
 
-    public Yayo() {
+    public Yayo(Proveedor proovedor, Invitado invitado) {
         this.chistes = new ArrayList<>();
-        this.proovedor = new Proovedor();
-        this.invitado = new Invitado();
+        this.proovedor = proovedor;
+        this.invitado = invitado;
     }
 
     public ArrayList<Chiste> todosLosChistes(){
         return this.chistes;
     }
 
-    public Chiste contarChiste(){
-        LocalDate hoy = LocalDate.now();
-        int dia = hoy.getDayOfMonth();
-        String categoria;
-        String idioma;
-
-        if (dia % 2 == 0){
-            categoria = "Programming";
-            idioma = "es";
-        }
-        else {
-            categoria = "Christmas";
-            idioma = "en";
-        }
-
-        Chiste chiste = proovedor.solicitarChiste(categoria,idioma);
+    private Chiste puntuar(Chiste chiste){
         int puntaje = this.invitado.puntuar(chiste);
         chiste.aplicarPuntaje(puntaje);
-        this.chistes.add(chiste);
-
         return chiste;
     }
 
+    private String determinarCategoria(Tiempo tiempo) {
+        int dia = tiempo.obtenerDiaDeHoy();
+        if (dia % 2 == 0){
+            return "Programming";
+        }
+        else {
+            return "Christmas";
+        }
+    }
 
+    private String determinarIdioma(Tiempo tiempo) {
+        int dia = tiempo.obtenerDiaDeHoy();
+        if (dia % 2 == 0){
+            return  "es";
+        }
+        else {
+            return  "en";
+        }
+    }
+
+    public Chiste contarChiste(Tiempo tiempo){
+        String categoria = this.determinarCategoria(tiempo);
+        String idioma = this.determinarIdioma(tiempo);
+
+        Chiste chiste = proovedor.solicitarChiste(categoria,idioma);
+        this.puntuar(chiste);
+
+        this.chistes.add(chiste);
+        return chiste;
+    }
 }
