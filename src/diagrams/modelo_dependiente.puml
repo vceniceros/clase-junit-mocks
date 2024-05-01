@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Yayo {
++ contarChistes(): Chiste
++ todosLosChistes(): List<Chiste>
++ mejoresChistesr(int cantidad) :List<Chiste>
+}
+
+class Chiste {
+- String categoria;
+- String setup;
+- String delive
+- int puntaje
++ Chiste(String categoria, String delivery, String setup)
++  aplicarPuntaje(int puntaje): int
++  tieneCategoria(String c) :boolean
++  esMalo(): boolean
+
+}
+
+class Proovedor {
++ solicitarChiste(String categoria, String idioma): Chiste
+}
+
+class Invitado {
++ puntuar(Chiste chiste): int
+}
+
+Yayo *-left- Chiste: 0..*
+Yayo -down-> Invitado
+Yayo -right->Proovedor
+
+@enduml
