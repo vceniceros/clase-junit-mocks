@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Yayo {
++ Yayo(Proveedor proovedor, Invitado invitado)
++ contarChistes(): Chiste
++ todosLosChistes(): List<Chiste>
++ mejoresChistesr(int cantidad) :List<Chiste>
+}
+
+class Chiste {
+- String categoria;
+- String setup;
+- String delive
+- int puntaje
++ Chiste(String categoria, String delivery, String setup)
++  aplicarPuntaje(int puntaje): int
++  tieneCategoria(String c) :boolean
++  esMalo(): boolean
+
+}
+
+interface Proovedor {
++ solicitarChiste(String categoria, String idioma): Chiste
+}
+
+interface Invitado {
++ puntuar(Chiste chiste): int
+}
+
+interface Tiempo {
++ obtenerDiaDeHoy(): int
+}
+
+class TiempoProductivo implements Tiempo {
++ obtenerDiaDeHoy(): int
+}
+
+class ProovedorWeb implements Proovedor {
++ solicitarChiste(String categoria, String idioma): Chiste
+}
+
+class InvitadoRandom implements Invitado {
++ puntuar(Chiste chiste): int
+}
+
+Yayo *-left- Chiste: 0..*
+Yayo -down-> Invitado
+Yayo -right->Proovedor
+Yayo ..> Tiempo
+
+@enduml
