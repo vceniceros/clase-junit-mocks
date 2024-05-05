@@ -2,7 +2,7 @@
 'https://plantuml.com/class-diagram
 
 class Yayo {
-+ Yayo(Proveedor proovedor, Invitado invitado)
++ Yayo(Proveedor proveedor, Invitado invitado)
 + contarChistes(): Chiste
 + todosLosChistes(): List<Chiste>
 + mejoresChistesr(int cantidad) :List<Chiste>
@@ -20,7 +20,7 @@ class Chiste {
 
 }
 
-interface Proovedor {
+interface Proveedor {
 + solicitarChiste(String categoria, String idioma): Chiste
 }
 
@@ -36,7 +36,7 @@ class TiempoProductivo implements Tiempo {
 + obtenerDiaDeHoy(): int
 }
 
-class ProovedorWeb implements Proovedor {
+class ProveedorWeb implements Proveedor {
 + solicitarChiste(String categoria, String idioma): Chiste
 }
 
@@ -46,7 +46,7 @@ class InvitadoRandom implements Invitado {
 
 Yayo *-left- Chiste: 0..*
 Yayo -down-> Invitado
-Yayo -right->Proovedor
+Yayo -right->Proveedor
 Yayo ..> Tiempo
 
 @enduml
