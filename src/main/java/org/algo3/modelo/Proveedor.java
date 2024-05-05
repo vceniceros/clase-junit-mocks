@@ -9,7 +9,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class Proovedor {
+public class Proveedor {
     private final String apiBaseUrl = "https://v2.jokeapi.dev/joke/";
     public Chiste solicitarChiste(String categoria, String idioma) {
         String url = String.format(apiBaseUrl+"%s?lang=%s&format=json&type=twopart",categoria,idioma);

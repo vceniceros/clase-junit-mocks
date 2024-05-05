@@ -19,7 +19,7 @@ class Chiste {
 
 }
 
-class Proovedor {
+class Proveedor {
 + solicitarChiste(String categoria, String idioma): Chiste
 }
 
@@ -29,6 +29,6 @@ class Invitado {
 
 Yayo *-left- Chiste: 0..*
 Yayo -down-> Invitado
-Yayo -right->Proovedor
+Yayo -right->Proveedor
 
 @enduml

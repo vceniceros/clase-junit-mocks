@@ -6,12 +6,12 @@ import java.util.ArrayList;
 public class Yayo {
 
     private ArrayList<Chiste> chistes;
-    private Proovedor proovedor;
+    private Proveedor proveedor;
     private Invitado invitado;
 
     public Yayo() {
         this.chistes = new ArrayList<>();
-        this.proovedor = new Proovedor();
+        this.proveedor = new Proveedor();
         this.invitado = new Invitado();
     }
 
@@ -34,7 +34,7 @@ public class Yayo {
             idioma = "en";
         }
 
-        Chiste chiste = proovedor.solicitarChiste(categoria,idioma);
+        Chiste chiste = proveedor.solicitarChiste(categoria,idioma);
         int puntaje = this.invitado.puntuar(chiste);
         chiste.aplicarPuntaje(puntaje);
         this.chistes.add(chiste);
