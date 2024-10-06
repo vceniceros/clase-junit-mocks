@@ -1,0 +1,10 @@
+Christmas;en;Why was the math book sad on Christmas?;Because it had too many problems.
+Christmas;en;What do you call an elf who sings?;A wrapper!
+Christmas;en;Why don't you ever see Santa in the hospital?;Because he has private elf care.
+Programming;es;¿Por qué los programadores prefieren el té en vez del café?;Porque el té es más ligero.
+Programming;es;¿Cuántos programadores se necesitan para cambiar una bombilla?;Ninguno, eso es un problema de hardware.
+Programming;es;¿Qué hace un programador cuando tiene hambre?;Se pide un byte.
+Programming;es;¿Por qué los carteristas rompen el principio de 'Tell, Don't Ask'?;Porque te sacan la billetera en vez de pedirte que se las des.
+Programming;es;¿Por qué es importante el manejo de errores?;Pregúntenle a Boeing.
+Programming;es;Mi mamá me dijo que soy alguien muy positivo.;Dijo que soy un 0 a la izquierda.
+Programming;es;Cual es el costo de un mal debbuging?;suficiente para que la nasa se cambie al sistema metrico.

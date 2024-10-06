@@ -1,6 +1,8 @@
 package org.algo3;
 
 
+import java.lang.reflect.Array;
+
 import org.algo3.modelo.Chiste;
 import org.algo3.modelo.Yayo;
 import org.algo3.modelo.invitado.Invitado;
@@ -14,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.*;
+import org.mockito.internal.matchers.Equals;
 
 public class YayoMejoradoTest {
 
@@ -150,6 +153,65 @@ public class YayoMejoradoTest {
         Assert.assertFalse(chiste.esMalo());
 
     }
+
+
+    @Test 
+    public void dosChistesComparanCualEsMejor(){
+        //arrange
+        Chiste unChisteFalso = new Chiste("Programming","por que los carteristas rompen tell dont ask","porque te sacan la billetera en vez de pedirte que se las des");
+        Chiste otroChisteFalso = new Chiste("Programming", "porque es importante el manejo de errores", "preguntenle a Boeing");
+        unChisteFalso.aplicarPuntaje(5);
+        otroChisteFalso.aplicarPuntaje(10);
+
+        //act
+        int comparacion = unChisteFalso.compararCon(otroChisteFalso);
+        
+
+        //assert
+        Assert.assertTrue(comparacion == -1);
+    }
+
+    @Test
+    public void yayoCuentaSus2MejoresChistes(){
+        //arrange
+        Chiste unChisteFalso = new Chiste("Programming","por que los carteristas rompen tell dont ask","porque te sacan la billetera en vez de pedirte que se las des");
+        Chiste otroChisteFalso = new Chiste("Programming", "porque es importante el manejo de errores", "preguntenle a Boeing");
+        Chiste unTercerChisteFalso = new Chiste("Programming", "mi mama me dijo que soy alguien muy positivo", "dijo que soy un 0 a la izquierda");
+       
+        when(YayoMejoradoTest.this.proveedorMock.solicitarChiste("Programming", "es")).thenReturn(unChisteFalso).thenReturn(otroChisteFalso)
+        .thenReturn(unTercerChisteFalso);
+
+        when(invitadoMock.puntuar(unChisteFalso)).thenReturn(5);
+        when(invitadoMock.puntuar(otroChisteFalso)).thenReturn(10);
+        when(invitadoMock.puntuar(unTercerChisteFalso)).thenReturn(8);
+        when(tiempoMock.obtenerDiaDeHoy()).thenReturn(6);
+        Yayo yayo = new Yayo(YayoMejoradoTest.this.proveedorMock, invitadoMock);
+
+        ArrayList chistesEsperados = new ArrayList<Chiste>();
+        chistesEsperados.add(otroChisteFalso);
+        chistesEsperados.add(unTercerChisteFalso);
+        
+
+        //act
+
+        yayo.contarChiste(tiempoMock);
+        yayo.contarChiste(tiempoMock);
+        yayo.contarChiste(tiempoMock);
+        
+        ArrayList listaDeChistes = yayo.mejoresChistes(2);
+        
+        
+        //asset
+        Assert.assertEquals(chistesEsperados, listaDeChistes);
+
+
+    }
+
+    @Test
+    public void yaCuentaUnChisteConElProveedorDelTxt(){
+        
+    }
+
 
     @Ignore("Test es ignorado")
     @Test

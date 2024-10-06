@@ -12,6 +12,7 @@ import java.net.http.HttpResponse;
 
 public class ProveedorWeb implements Proveedor {
     private final String apiBaseUrl = "https://v2.jokeapi.dev/joke/";
+    @Override
     public Chiste solicitarChiste(String categoria, String idioma) {
         String url = String.format(apiBaseUrl+"%s?lang=%s&format=json&type=twopart",categoria,idioma);
 

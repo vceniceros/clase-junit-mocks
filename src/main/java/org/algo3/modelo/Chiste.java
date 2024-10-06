@@ -27,4 +27,17 @@ public class Chiste {
     public boolean esMalo() {
         return this.puntaje < 5;
     }
+
+    public int compararCon(Chiste otroChiste) {
+        //aclaracion: sort por algun motivo espera 1 o -1
+        
+        int comparador; 
+        if(this.puntaje > otroChiste.puntaje){
+            comparador = 1;
+        }else{
+            comparador = -1;
+        }
+        
+       return comparador;
+    }
 }

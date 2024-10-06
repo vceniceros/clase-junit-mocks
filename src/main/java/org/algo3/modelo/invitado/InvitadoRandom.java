@@ -5,6 +5,7 @@ import org.algo3.modelo.Chiste;
 import java.util.Random;
 
 public class InvitadoRandom implements Invitado {
+    @Override
     public int puntuar(Chiste chiste) {
         Random random = new Random();
 

@@ -4,6 +4,7 @@ import org.algo3.modelo.Chiste;
 import org.algo3.modelo.Yayo;
 import org.algo3.modelo.invitado.Invitado;
 import org.algo3.modelo.proveedor.Proveedor;
+import org.algo3.modelo.proveedor.ProveedorLocal;
 import org.algo3.modelo.proveedor.ProveedorWeb;
 import org.algo3.modelo.tiempo.Tiempo;
 import org.junit.After;
@@ -49,7 +50,17 @@ public class YayoIntegrationTest {
 
 
 
+    @Test
+    public void yayoSolicitaAlProovedorLocalChistesDeProgramacion(){
 
+        when(tiempoMock.obtenerDiaDeHoy()).thenReturn(2);
+        Proveedor proveedorLocal = new ProveedorLocal();
+        Yayo yayo = new Yayo(proveedorLocal, invitadoMock);
+
+        Chiste chiste = yayo.contarChiste(tiempoMock);
+
+        Assert.assertTrue(chiste.tieneCategoria("Programming"));
+    }
 
 
 

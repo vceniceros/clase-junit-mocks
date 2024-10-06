@@ -1,5 +1,7 @@
 package org.algo3.modelo;
 
+import java.lang.reflect.Array;
+
 import org.algo3.modelo.invitado.Invitado;
 import org.algo3.modelo.proveedor.Proveedor;
 import org.algo3.modelo.tiempo.Tiempo;
@@ -58,4 +60,16 @@ public class Yayo {
         this.chistes.add(chiste);
         return chiste;
     }
+
+    public ArrayList<Chiste> mejoresChistes(int cantidad){
+            this.chistes.sort((unChiste, otroChiste) -> otroChiste.compararCon(unChiste));
+
+            ArrayList<Chiste> mejoresChistes = new ArrayList<>();
+            //si rompe telldont ask, no, no se me ocurrio como limitar la iteracion de otra forma
+            for (int i = 0; i < cantidad; i++) {
+                mejoresChistes.add(chistes.get(i));
+            }
+
+            return mejoresChistes;
+}
 }
